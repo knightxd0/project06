@@ -19,22 +19,23 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.util.Scanner;
 
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
+
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
-    @EventMapping
-    public void handleTextMessage(MessageEvent<TextMessageContent> event) {
+    @EventMapping //
+    public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
-        TextMessageContent message = event.getMessage();
-        handleTextContent(event.getReplyToken(), event, message);
+        TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
+        handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
     }
 
-    private void handleTextContent(String replyToken, Event event,
-            TextMessageContent content) {
+    private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
         log.info("Got text message from %s : %s", replyToken, text);
@@ -61,13 +62,12 @@ public class LineBotController {
                 break;
             }
             case "BMI": {
-                // log.info("Return message %s : %s", replyToken, text);
-                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่"));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูงหน่อย cm."));
+                this.reply(replyToken, new TextMessage(text));
+
                 break;
             }
-            default:
-                log.info("Return echo message %s : %s", replyToken, text);
-                this.replyText(replyToken, text);
+
         }
     }
 
