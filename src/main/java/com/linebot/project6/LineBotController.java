@@ -62,8 +62,8 @@ public class LineBotController {
                 break;
             }
             case "BMI": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูงหน่อย cm."));
                 this.reply(replyToken, new TextMessage(text));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูงหน่อย cm."));
 
                 break;
             }
