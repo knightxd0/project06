@@ -60,6 +60,11 @@ public class LineBotController {
                 }
                 break;
             }
+            case "BMI": {
+                // log.info("Return message %s : %s", replyToken, text);
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่"));
+                break;
+            }
             default:
                 log.info("Return echo message %s : %s", replyToken, text);
                 this.replyText(replyToken, text);
