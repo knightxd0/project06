@@ -128,6 +128,7 @@ public class LineBotController {
                 break;
             }
             case "ไม่": {
+                logic = false;
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลงั้บ"),
                         new TextMessage("BMI: " +
