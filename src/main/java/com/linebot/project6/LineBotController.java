@@ -112,7 +112,6 @@ public class LineBotController {
                 break;
             }
             case "ไม่ต้องการ": {
-                this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลงั้บ"),
                         new TextMessage("BMI: " +
