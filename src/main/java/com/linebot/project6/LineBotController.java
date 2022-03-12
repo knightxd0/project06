@@ -52,7 +52,8 @@ public class LineBotController {
     }
 
     public double getBMI(double weight, double height) {
-        return weight / (height * height);
+        double h = ((height / 100.0) * (height / 100.0));
+        return weight / h;
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
