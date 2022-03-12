@@ -55,7 +55,7 @@ public class LineBotController {
 
         double h = ((height / 100.00) * (height / 100.00));
         double sum = weight / h;
-        return Double.parseDouble(String.format("%.3f", sum));
+        return Double.parseDouble(String.format("%.2f", sum));
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
