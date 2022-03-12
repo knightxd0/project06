@@ -24,6 +24,7 @@ import java.util.concurrent.ExecutionException;
 @LineMessageHandler
 public class LineBotController {
     boolean logic = false;
+    double[] info = new double[2];
 
     @Autowired
     private LineMessagingClient lineMessagingClient;
@@ -108,7 +109,8 @@ public class LineBotController {
             }
             case "ไม่ต้องการ": {
                 this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
-                logic = true;
+                double weight = info[0], height = info[1];
+
                 break;
             }
 
@@ -122,7 +124,7 @@ public class LineBotController {
         String text = content.getText();
         log.info("Got text message from %s : %s", replyToken, text);
         String[] n = text.split(" ");
-        double[] info = new double[2];
+
         info[0] = 0;
         info[1] = 0;
 
