@@ -19,6 +19,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 @Slf4j
 @LineMessageHandler
@@ -52,8 +54,10 @@ public class LineBotController {
     }
 
     public double getBMI(double weight, double height) {
+        DecimalFormat df = new DecimalFormat("#.##");
         double h = ((height / 100.0) * (height / 100.0));
-        return weight / h;
+        double sum = weight / h;
+        return Double.parseDouble(df.format(sum));
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
