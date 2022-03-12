@@ -108,14 +108,22 @@ public class LineBotController {
                 break;
             }
             case "ไม่ต้องการ": {
-                this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
                 double weight = info[0], height = info[1];
+                this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("กำลังประมวลผลงั้บ"),
+                        new TextMessage("BMI: " +
+                                getBMI(weight, height))));
 
                 break;
             }
 
         }
 
+    }
+
+    public double getBMI(double weight, double height) {
+        return weight / (height * height);
     }
 
     private void calTextContent(String replyToken, Event event, TextMessageContent content, String cal) {
@@ -152,6 +160,7 @@ public class LineBotController {
 
         switch (message) {
             case "Calculator": {
+                logic = false;
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("น้ำหนัก: " +
                                 info[0]),
@@ -162,8 +171,6 @@ public class LineBotController {
                 break;
             }
         }
-
-        logic = false;
 
     }
 
