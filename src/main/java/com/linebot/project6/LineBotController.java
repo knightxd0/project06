@@ -24,6 +24,7 @@ import java.util.Scanner;
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
+    int count = 0;
 
     @Autowired
     private LineMessagingClient lineMessagingClient;
@@ -39,7 +40,9 @@ public class LineBotController {
         String text = content.getText();
 
         log.info("Got text message from %s : %s", replyToken, text);
+        if (count >= 1) {
 
+        }
         switch (text) {
             case "Profile": {
                 String userId = event.getSource().getUserId();
@@ -62,13 +65,12 @@ public class LineBotController {
                 break;
             }
             case "BMI": {
-                this.reply(replyToken, new TextMessage(text));
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูงหน่อย cm."));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
 
-                break;
             }
 
         }
+
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
