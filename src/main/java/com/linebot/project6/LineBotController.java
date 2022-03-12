@@ -119,7 +119,7 @@ public class LineBotController {
                         new TextMessage("กำลังประมวลผลงั้บ")));
             }
         }
-
+        logic = false;
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
