@@ -50,7 +50,13 @@ public class LineBotController {
         if (t.equals("ต้องการแก้ไข")) {
             logic = false;
         }
+        if (t.equals("ต้องการ")) {
+            logic = false;
+        }
         if (t.equals("ไม่ต้องการ")) {
+            logic = false;
+        }
+        if (t.equals("ไม่")) {
             logic = false;
         }
     }
@@ -177,17 +183,17 @@ public class LineBotController {
             info[1] = temp;
         }
 
-        info[0] = Double.parseDouble(String.format("%.3f", info[0]));
-        info[1] = Double.parseDouble(String.format("%.3f", info[1]));
+        info[0] = Double.parseDouble(String.format("%.2f", info[0]));
+        info[1] = Double.parseDouble(String.format("%.2f", info[1]));
 
         switch (message) {
             case "Calculator": {
                 logic = false;
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("น้ำหนัก: " +
-                                info[0]),
+                                Double.parseDouble(String.format("%.2f", info[0]))),
                         new TextMessage("ส่วนสูง: " +
-                                info[1]),
+                                Double.parseDouble(String.format("%.2f", info[1]))),
                         new TextMessage("ต้องการแก้ไขมั้ยงั้บ")));
 
                 break;
