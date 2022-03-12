@@ -31,12 +31,15 @@ public class LineBotController {
     @EventMapping //
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
+        TextMessageContent message = event.getMessage();
+        String t = message.getText();
+        if (t.equals("ยกเลิก")) {
+            logic = false;
+        }
         if (logic == true) {
             String cal = "Calculator";
-            TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
             calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
         } else {
-            TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
             handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
         }
     }
@@ -133,10 +136,11 @@ public class LineBotController {
                                 info[1]),
                         new TextMessage("กำลังประมวลผลงั้บ")));
 
-                logic = false;
                 break;
             }
         }
+
+        logic = false;
 
     }
 
