@@ -19,12 +19,11 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-import java.util.Scanner;
 
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
-    int count = 0;
+    boolean logic = false;
 
     @Autowired
     private LineMessagingClient lineMessagingClient;
@@ -32,17 +31,20 @@ public class LineBotController {
     @EventMapping //
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
-        TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
-        handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+        if (logic == true) {
+            TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
+            calTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+        } else {
+            TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
+            handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+        }
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
         log.info("Got text message from %s : %s", replyToken, text);
-        if (count >= 1) {
 
-        }
         switch (text) {
             case "Profile": {
                 String userId = event.getSource().getUserId();
@@ -66,6 +68,29 @@ public class LineBotController {
             }
             case "BMI": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
+
+        }
+
+    }
+
+    private void calTextContent(String replyToken, Event event, TextMessageContent content) {
+        String text = content.getText();
+        String[] check = text.split(" ");
+        double[] events = new double[2];
+        int i = 0;
+
+        for (String c : check) {
+            while (i < 2) {
+                try {
+                    events[i] = Double.parseDouble(c);
+                    i++;
+
+                } catch (NumberFormatException e) {
+                    i = i + 0;
+                }
 
             }
 
