@@ -103,6 +103,8 @@ public class LineBotController {
             info[0] = info[1];
             info[1] = temp;
         }
+        this.reply(replyToken, new TextMessage("น้ำหนัก: " + info[0]));
+        this.reply(replyToken, new TextMessage("ส่วนสูง: " + info[1]));
 
     }
 
