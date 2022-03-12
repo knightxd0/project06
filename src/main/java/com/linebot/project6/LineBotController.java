@@ -72,6 +72,21 @@ public class LineBotController {
                 logic = true;
                 break;
             }
+            case "bmi": {
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
+            case "คำนวณBMI": {
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
+            case "คำนวณbmi": {
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
 
         }
 
@@ -117,9 +132,12 @@ public class LineBotController {
                         new TextMessage("ส่วนสูง: " +
                                 info[1]),
                         new TextMessage("กำลังประมวลผลงั้บ")));
+
+                logic = false;
+                break;
             }
         }
-        logic = false;
+
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
