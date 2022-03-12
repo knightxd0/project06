@@ -77,23 +77,31 @@ public class LineBotController {
     }
 
     private void calTextContent(String replyToken, Event event, TextMessageContent content) {
+        this.reply(replyToken, new TextMessage("กำลังคำนวณรอแป๊ปนึงนะ"));
+        boolean logic = true;
         String text = content.getText();
-        String[] check = text.split(" ");
-        double[] events = new double[2];
-        int i = 0;
+        String[] n = text.split(" ");
+        double[] info = new double[2];
+        for (int i = 0; i < n.length; i++) {
 
-        for (String c : check) {
-            while (i < 2) {
-                try {
-                    events[i] = Double.parseDouble(c);
-                    i++;
+            try {
+                double num = Double.parseDouble(n[i]);
 
-                } catch (NumberFormatException e) {
-                    i = i + 0;
-                }
-
+            } catch (NumberFormatException e) {
+                logic = false;
             }
 
+            if (logic) {
+                info[i] = Double.parseDouble(n[i]);
+            }
+
+        }
+
+        if (info[0] > info[1]) {
+            double temp = 0;
+            temp += info[0];
+            info[0] = info[1];
+            info[1] = temp;
         }
 
     }
