@@ -114,7 +114,20 @@ public class LineBotController {
                 logic = true;
                 break;
             }
+            case "ต้องการ": {
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
             case "ไม่ต้องการ": {
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("กำลังประมวลผลงั้บ"),
+                        new TextMessage("BMI: " +
+                                getBMI(info[0], info[1]))));
+
+                break;
+            }
+            case "ไม่": {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลงั้บ"),
                         new TextMessage("BMI: " +
@@ -158,6 +171,9 @@ public class LineBotController {
             info[0] = info[1];
             info[1] = temp;
         }
+
+        info[0] = Double.parseDouble(String.format("%.2f", info[0]));
+        info[1] = Double.parseDouble(String.format("%.2f", info[1]));
 
         switch (message) {
             case "Calculator": {
