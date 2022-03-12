@@ -77,11 +77,13 @@ public class LineBotController {
     }
 
     private void calTextContent(String replyToken, Event event, TextMessageContent content) {
-        this.reply(replyToken, new TextMessage("กำลังคำนวณรอแป๊ปนึงนะ"));
+
         boolean logic = true;
         String text = content.getText();
         String[] n = text.split(" ");
         double[] info = new double[2];
+        info[0] = 0;
+        info[1] = 0;
         for (int i = 0; i < n.length; i++) {
 
             try {
@@ -92,7 +94,7 @@ public class LineBotController {
             }
 
             if (logic) {
-                info[i] = Double.parseDouble(n[i]);
+                info[i] += Double.parseDouble(n[i]);
             }
 
         }
@@ -103,8 +105,12 @@ public class LineBotController {
             info[0] = info[1];
             info[1] = temp;
         }
-        this.reply(replyToken, new TextMessage("น้ำหนัก: " + info[0]));
-        this.reply(replyToken, new TextMessage("ส่วนสูง: " + info[1]));
+        this.reply(replyToken, Arrays.asList(
+                new TextMessage("น้ำหนัก: " +
+                        info[0]),
+                new TextMessage("ส่วนสูง: " +
+                        info[1]),
+                new TextMessage("กำลังคำนวณรอแป๊ปนึงนะ")));
 
     }
 
