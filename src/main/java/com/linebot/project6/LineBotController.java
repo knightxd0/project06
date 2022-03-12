@@ -51,6 +51,10 @@ public class LineBotController {
         }
     }
 
+    public double getBMI(double weight, double height) {
+        return weight / (height * height);
+    }
+
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
@@ -108,22 +112,17 @@ public class LineBotController {
                 break;
             }
             case "ไม่ต้องการ": {
-                double weight = info[0], height = info[1];
                 this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลงั้บ"),
                         new TextMessage("BMI: " +
-                                getBMI(weight, height))));
+                                getBMI(info[0], info[1]))));
 
                 break;
             }
 
         }
 
-    }
-
-    public double getBMI(double weight, double height) {
-        return weight / (height * height);
     }
 
     private void calTextContent(String replyToken, Event event, TextMessageContent content, String cal) {
