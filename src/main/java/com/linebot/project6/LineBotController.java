@@ -36,6 +36,9 @@ public class LineBotController {
         if (t.equals("ยกเลิก")) {
             logic = false;
         }
+        if (t.equals("ต้องการแก้ไข")) {
+            logic = false;
+        }
         if (logic == true) {
             String cal = "Calculator";
             calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
