@@ -39,6 +39,9 @@ public class LineBotController {
         if (t.equals("ต้องการแก้ไข")) {
             logic = false;
         }
+        if (t.equals("ไม่ต้องการ")) {
+            logic = false;
+        }
         if (logic == true) {
             String cal = "Calculator";
             calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
@@ -100,6 +103,11 @@ public class LineBotController {
             }
             case "ต้องการแก้ไข": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                logic = true;
+                break;
+            }
+            case "ไม่ต้องการ": {
+                this.reply(replyToken, new TextMessage("กำลังประมวลผลงั้บ"));
                 logic = true;
                 break;
             }
