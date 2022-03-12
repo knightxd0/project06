@@ -54,10 +54,10 @@ public class LineBotController {
     }
 
     public double getBMI(double weight, double height) {
-        DecimalFormat df = new DecimalFormat("#.##");
+
         double h = ((height / 100.0) * (height / 100.0));
         double sum = weight / h;
-        return Double.parseDouble(df.format(sum));
+        return Double.parseDouble(String.format("%.2f", sum));
     }
 
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
