@@ -32,8 +32,9 @@ public class LineBotController {
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
         if (logic == true) {
+            String cal = "Calculator";
             TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
-            calTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+            calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
         } else {
             TextMessageContent message = event.getMessage(); // เนื้อหาข้อความ
             handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
@@ -76,14 +77,16 @@ public class LineBotController {
 
     }
 
-    private void calTextContent(String replyToken, Event event, TextMessageContent content) {
-
+    private void calTextContent(String replyToken, Event event, TextMessageContent content, String cal) {
+        String message = cal;
         boolean logic = true;
         String text = content.getText();
+        log.info("Got text message from %s : %s", replyToken, text);
         String[] n = text.split(" ");
         double[] info = new double[2];
         info[0] = 0;
         info[1] = 0;
+
         for (int i = 0; i < n.length; i++) {
 
             try {
@@ -105,12 +108,17 @@ public class LineBotController {
             info[0] = info[1];
             info[1] = temp;
         }
-        this.reply(replyToken, Arrays.asList(
-                new TextMessage("น้ำหนัก: " +
-                        info[0]),
-                new TextMessage("ส่วนสูง: " +
-                        info[1]),
-                new TextMessage("กำลังคำนวณรอแป๊ปนึงนะ")));
+
+        switch (message) {
+            case "Calculator": {
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("น้ำหนัก: " +
+                                info[0]),
+                        new TextMessage("ส่วนสูง: " +
+                                info[1]),
+                        new TextMessage("กำลังประมวลผลงั้บ")));
+            }
+        }
 
     }
 
