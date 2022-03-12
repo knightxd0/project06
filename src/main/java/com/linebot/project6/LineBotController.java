@@ -33,7 +33,17 @@ public class LineBotController {
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
         TextMessageContent message = event.getMessage();
-        String t = message.getText();
+        getLogic(message.getText());
+        if (logic == true) {
+            String cal = "Calculator";
+            calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
+        } else {
+            handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+        }
+    }
+
+    public void getLogic(String text) {
+        String t = text;
         if (t.equals("ยกเลิก")) {
             logic = false;
         }
@@ -42,12 +52,6 @@ public class LineBotController {
         }
         if (t.equals("ไม่ต้องการ")) {
             logic = false;
-        }
-        if (logic == true) {
-            String cal = "Calculator";
-            calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
-        } else {
-            handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
         }
     }
 
@@ -173,8 +177,8 @@ public class LineBotController {
             info[1] = temp;
         }
 
-        info[0] = Double.parseDouble(String.format("%.2f", info[0]));
-        info[1] = Double.parseDouble(String.format("%.2f", info[1]));
+        info[0] = Double.parseDouble(String.format("%.3f", info[0]));
+        info[1] = Double.parseDouble(String.format("%.3f", info[1]));
 
         switch (message) {
             case "Calculator": {
