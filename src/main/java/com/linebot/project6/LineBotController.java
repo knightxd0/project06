@@ -131,7 +131,7 @@ public class LineBotController {
             }
             case "ไม่ต้องการ": {
                 this.reply(replyToken, Arrays.asList(
-                        new TextMessage("กำลังประมวลผลงั้บ"),
+                        new TextMessage("กำลังประมวลผลครับ"),
                         new TextMessage("BMI: " +
                                 getBMI(info[0], info[1]))));
 
@@ -140,10 +140,15 @@ public class LineBotController {
             case "ไม่": {
                 logic = false;
                 this.reply(replyToken, Arrays.asList(
-                        new TextMessage("กำลังประมวลผลงั้บ"),
+                        new TextMessage("กำลังประมวลผลครับ"),
                         new TextMessage("BMI: " +
                                 getBMI(info[0], info[1]))));
 
+                break;
+            }
+            case "โมโม่": {
+                this.reply(replyToken, new TextMessage(
+                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ Calories\n2.กรอกข้อมูล"));
                 break;
             }
 
