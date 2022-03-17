@@ -226,8 +226,37 @@ public class LineBotController {
                 }
             }
             this.count++;
-            this.reply(replyToken, new TextMessage("ส่วนสูง: " + this.height));
+            this.reply(replyToken, new TextMessage("ส่วนสูง: " + this.height + "\nอายุเท่าไรครับ"));
+
+        } else if (this.count == 2) {
+            for (int i = 0; i < n.length; i++) {
+
+                try {
+                    int num = Integer.parseInt(n[i]);
+                    this.age = num;
+
+                } catch (NumberFormatException e) {
+                    logic = false;
+                }
+            }
+            this.count++;
+            this.reply(replyToken, new TextMessage("อายุ: " + this.age + "\nเพศอะไรครับ"));
+
+        } else if (this.count == 3) {
+
+            if (text.equals("ชาย")) {
+                this.gender = text;
+
+            } else if (text.equals("หญิง")) {
+                this.gender = text;
+
+            } else {
+                this.reply(replyToken, new TextMessage("ข้อมูลไม่ถูกต้องครับ\nเพศอะไรครับ"));
+            }
+
+            this.reply(replyToken, new TextMessage("เพศ: " + this.gender));
         }
+
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
