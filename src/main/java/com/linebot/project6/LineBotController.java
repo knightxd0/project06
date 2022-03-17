@@ -279,7 +279,7 @@ public class LineBotController {
                     new TextMessage("เพศ: " + this.gender),
                     new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "\nอายุ: " + this.age
                             + "\nเพศ: " + this.gender),
-                    new TextMessage("ต้องการแก้ไขหรือไม่ครับ(ต้องการ/ไม่ต้องการ)")));
+                    new TextMessage("ต้องการแก้ไขหรือไม่ครับ\n(ต้องการ/ไม่ต้องการ)")));
         }
 
     }
