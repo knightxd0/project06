@@ -74,6 +74,24 @@ public class LineBotController {
         return Double.parseDouble(String.format("%.2f", sum));
     }
 
+    public String getStandard(double bmi) {
+        double b = bmi;
+        String standard;
+        if (b < 18.50) {
+            standard = "น้ำหนักต่ำกว่าเกณฑ์";
+        } else if ((b > 18.59) && (b < 22.90)) {
+            standard = "สุขภาพดี";
+        } else if ((b > 23.0) && (b < 24.90)) {
+            standard = "ท้วม";
+        } else if ((b > 25.0) && (b < 29.90)) {
+            standard = "อ้วน";
+        } else if (b > 30.0) {
+            standard = "อ้วนมาก";
+        }
+
+        return standard;
+    }
+
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
@@ -121,7 +139,8 @@ public class LineBotController {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลครับ"),
                         new TextMessage("BMI: " +
-                                getBMI(this.weight, this.height))));
+                                getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
+                                + getStandard(getBMI(this.weight, this.height)))));
 
                 break;
             }
@@ -140,57 +159,6 @@ public class LineBotController {
                 break;
             }
 
-        }
-
-    }
-
-    private void calTextContent(String replyToken, Event event, TextMessageContent content, String cal) {
-        String message = cal;
-        boolean logic = true;
-        String text = content.getText();
-        log.info("Got text message from %s : %s", replyToken, text);
-        String[] n = text.split(" ");
-
-        info[0] = 0.00;
-        info[1] = 0.00;
-
-        for (int i = 0; i < n.length; i++) {
-
-            try {
-                double num = Double.parseDouble(n[i]);
-
-            } catch (NumberFormatException e) {
-                logic = false;
-            }
-
-            if (logic) {
-                info[i] += Double.parseDouble(n[i]);
-            }
-
-        }
-
-        if (info[0] > info[1]) {
-            double temp = 0;
-            temp += info[0];
-            info[0] = info[1];
-            info[1] = temp;
-        }
-
-        info[0] = Double.parseDouble(String.format("%.2f", info[0]));
-        info[1] = Double.parseDouble(String.format("%.2f", info[1]));
-
-        switch (message) {
-            case "Calculator": {
-                logic = false;
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage("น้ำหนัก: " +
-                                Double.parseDouble(String.format("%.2f", info[0]))),
-                        new TextMessage("ส่วนสูง: " +
-                                Double.parseDouble(String.format("%.2f", info[1]))),
-                        new TextMessage("ต้องการแก้ไขหรือไม่ครับ")));
-
-                break;
-            }
         }
 
     }
