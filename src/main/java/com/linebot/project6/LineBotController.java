@@ -29,6 +29,7 @@ public class LineBotController {
     private double height;
     private int age;
     private String gender;
+    private String standard;
 
     boolean logic = false;
     double[] info = new double[2];
@@ -78,17 +79,17 @@ public class LineBotController {
         double b = bmi;
         String standard;
         if (b < 18.50) {
-            standard = "น้ำหนักต่ำกว่าเกณฑ์";
+            this.standard = "น้ำหนักต่ำกว่าเกณฑ์";
         } else if ((b > 18.59) && (b < 22.90)) {
-            standard = "สุขภาพดี";
+            this.standard = "สุขภาพดี";
         } else if ((b > 23.0) && (b < 24.90)) {
-            standard = "ท้วม";
+            this.standard = "ท้วม";
         } else if ((b > 25.0) && (b < 29.90)) {
-            standard = "อ้วน";
+            this.standard = "อ้วน";
         } else if (b > 30.0) {
-            standard = "อ้วนมาก";
+            this.standard = "อ้วนมาก";
         }
-
+        standard = this.standard;
         return standard;
     }
 
