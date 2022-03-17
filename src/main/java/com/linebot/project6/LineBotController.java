@@ -256,8 +256,8 @@ public class LineBotController {
 
             this.reply(replyToken, Arrays.asList(
                     new TextMessage("เพศ: " + this.gender),
-                    new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "อายุ: " + this.age
-                            + "เพศ: " + this.gender),
+                    new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "\nอายุ: " + this.age
+                            + "\nเพศ: " + this.gender),
                     new TextMessage("ต้องการแก้ไขหรือไม่ครับ")));
         }
 
