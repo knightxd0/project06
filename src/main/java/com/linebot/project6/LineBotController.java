@@ -68,6 +68,9 @@ public class LineBotController {
         if (t.equals("ไม่")) {
             logic = false;
         }
+        if (t.equals("ไม่ต้อง")) {
+            logic = false;
+        }
     }
 
     public double getCalories() {
@@ -171,10 +174,21 @@ public class LineBotController {
                             new TextMessage("แคลลอรี่ต่อวัน: " +
                                     getCalories())));
                 }
+                // this.weight = 0;
+                this.count = 0;
 
                 break;
             }
             case "ไม่": {
+                logic = false;
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("กำลังประมวลผลครับ"),
+                        new TextMessage("BMI: " +
+                                getBMI(this.weight, this.height))));
+
+                break;
+            }
+            case "ไม่ต้อง": {
                 logic = false;
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลครับ"),
