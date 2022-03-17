@@ -152,11 +152,13 @@ public class LineBotController {
             case "ต้องการแก้ไข": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
+                this.count = 0;
                 break;
             }
             case "ต้องการ": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
+                this.count = 0;
                 break;
             }
             case "ไม่ต้องการ": {
@@ -277,7 +279,7 @@ public class LineBotController {
                     new TextMessage("เพศ: " + this.gender),
                     new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "\nอายุ: " + this.age
                             + "\nเพศ: " + this.gender),
-                    new TextMessage("ต้องการแก้ไขหรือไม่ครับ")));
+                    new TextMessage("ต้องการแก้ไขหรือไม่ครับ(ต้องการ/ไม่ต้องการ)")));
         }
 
     }
