@@ -30,6 +30,8 @@ public class LineBotController {
     private int age;
     private String gender;
     private String standard;
+    private double sum;
+    private int type;
 
     boolean logic = false;
     double[] info = new double[2];
@@ -66,6 +68,18 @@ public class LineBotController {
         if (t.equals("ไม่")) {
             logic = false;
         }
+    }
+
+    public double getCalories() {
+        String g = this.gender;
+        double calories;
+        if (g.equals("ชาย")) {
+            this.sum = this.weight * 31.0;
+        } else if (g.equals("หญิง")) {
+            this.sum = this.weight * 27.0;
+        }
+        calories = this.sum;
+        return calories;
     }
 
     public double getBMI(double weight, double height) {
@@ -122,26 +136,41 @@ public class LineBotController {
             case "BMI": {
                 this.reply(replyToken, new TextMessage("น้ำหนักเท่าไรครับ kg."));
                 logic = true;
+                this.type = 0;
+                break;
+            }
+            case "แคลลอรี่": {
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไรครับ kg."));
+                logic = true;
+                this.type = 1;
                 break;
             }
 
             case "ต้องการแก้ไข": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
                 break;
             }
             case "ต้องการ": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
                 break;
             }
             case "ไม่ต้องการ": {
-                logic = false;
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage("กำลังประมวลผลครับ"),
-                        new TextMessage("BMI: " +
-                                getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
-                                + getStandard(getBMI(this.weight, this.height)))));
+                if (this.type == 0) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("BMI: " +
+                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
+                                    + getStandard(getBMI(this.weight, this.height)))));
+                } else if (this.type == 1) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("แคลลอรี่ต่อวัน: " +
+                                    getCalories())));
+                }
 
                 break;
             }
@@ -156,8 +185,15 @@ public class LineBotController {
             }
             case "โมโม่": {
                 this.reply(replyToken, new TextMessage(
-                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ Calories\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล"));
+                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ แคลลอรี่\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล"));
                 break;
+            }
+            default: {
+                this.reply(replyToken, new TextMessage("โมโม่ไม่เข้าใจครับ"));
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("โมโม่ไม่เข้าใจครับ"),
+                        new TextMessage(
+                                "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ แคลลอรี่\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล")));
             }
 
         }
