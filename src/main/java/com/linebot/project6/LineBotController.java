@@ -189,7 +189,6 @@ public class LineBotController {
                 break;
             }
             default: {
-                this.reply(replyToken, new TextMessage("โมโม่ไม่เข้าใจครับ"));
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("โมโม่ไม่เข้าใจครับ"),
                         new TextMessage(
