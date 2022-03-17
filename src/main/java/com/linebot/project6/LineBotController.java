@@ -101,7 +101,7 @@ public class LineBotController {
                 break;
             }
             case "BMI": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไรครับ kg."));
                 logic = true;
                 break;
             }
@@ -212,8 +212,21 @@ public class LineBotController {
                 }
             }
             this.count++;
-            this.reply(replyToken, new TextMessage("น้ำหนัก: " + this.weight));
+            this.reply(replyToken, new TextMessage("น้ำหนัก: " + this.weight + "\nน้ำหนักเท่าไรครับ cm."));
 
+        } else if (this.count == 1) {
+            for (int i = 0; i < n.length; i++) {
+
+                try {
+                    double num = Double.parseDouble(n[i]);
+                    this.height = num;
+
+                } catch (NumberFormatException e) {
+                    logic = false;
+                }
+            }
+            this.count++;
+            this.reply(replyToken, new TextMessage("ส่วนสูง: " + this.weight));
         }
     }
 
