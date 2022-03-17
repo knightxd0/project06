@@ -23,6 +23,13 @@ import java.util.concurrent.ExecutionException;
 @Slf4j
 @LineMessageHandler
 public class LineBotController {
+    // field
+    private int count;
+    private double weight;
+    private double height;
+    private int age;
+    private String gender;
+
     boolean logic = false;
     double[] info = new double[2];
 
@@ -35,8 +42,7 @@ public class LineBotController {
         TextMessageContent message = event.getMessage();
         getLogic(message.getText());
         if (logic == true) {
-            String cal = "Calculator";
-            calTextContent(event.getReplyToken(), event, message, cal); // จัดการเนื้อหาข้อความ
+            inputTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
         } else {
             handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
         }
@@ -95,30 +101,11 @@ public class LineBotController {
                 break;
             }
             case "BMI": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
+                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
                 break;
             }
-            case "bmi": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
-                logic = true;
-                break;
-            }
-            case "Bmi": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
-                logic = true;
-                break;
-            }
-            case "คำนวณBMI": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
-                logic = true;
-                break;
-            }
-            case "คำนวณbmi": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
-                logic = true;
-                break;
-            }
+
             case "ต้องการแก้ไข": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg. และส่วนสูง cm. หน่อย "));
                 logic = true;
@@ -148,7 +135,7 @@ public class LineBotController {
             }
             case "โมโม่": {
                 this.reply(replyToken, new TextMessage(
-                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ Calories\n2.กรอกข้อมูล"));
+                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ Calories\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล"));
                 break;
             }
 
@@ -199,12 +186,35 @@ public class LineBotController {
                                 Double.parseDouble(String.format("%.2f", info[0]))),
                         new TextMessage("ส่วนสูง: " +
                                 Double.parseDouble(String.format("%.2f", info[1]))),
-                        new TextMessage("ต้องการแก้ไขมั้ยงั้บ")));
+                        new TextMessage("ต้องการแก้ไขหรือไม่ครับ")));
 
                 break;
             }
         }
 
+    }
+
+    private void inputTextContent(String replyToken, Event event, TextMessageContent content) {
+        String text = content.getText();
+
+        log.info("Got text message from %s : %s", replyToken, text);
+        String[] n = text.split(" ");
+
+        if (this.count == 0) {
+            for (int i = 0; i < n.length; i++) {
+
+                try {
+                    double num = Double.parseDouble(n[i]);
+                    this.weight = num;
+
+                } catch (NumberFormatException e) {
+                    logic = false;
+                }
+            }
+            this.count++;
+            this.reply(replyToken, new TextMessage("น้ำหนัก: " + this.weight));
+
+        }
     }
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
