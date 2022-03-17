@@ -233,7 +233,7 @@ public class LineBotController {
                 }
             }
             this.count++;
-            this.reply(replyToken, new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูงเท่าไรครับ cm."));
+            this.reply(replyToken, new TextMessage("ส่วนสูงเท่าไรครับ cm."));
 
         } else if (this.count == 1) {
             for (int i = 0; i < n.length; i++) {
@@ -247,7 +247,7 @@ public class LineBotController {
                 }
             }
             this.count++;
-            this.reply(replyToken, new TextMessage("ส่วนสูง: " + this.height + "\nอายุเท่าไรครับ"));
+            this.reply(replyToken, new TextMessage("อายุเท่าไรครับ"));
 
         } else if (this.count == 2) {
             for (int i = 0; i < n.length; i++) {
@@ -261,7 +261,7 @@ public class LineBotController {
                 }
             }
             this.count++;
-            this.reply(replyToken, new TextMessage("อายุ: " + this.age + "\nเพศอะไรครับ"));
+            this.reply(replyToken, new TextMessage("เพศอะไรครับ"));
 
         } else if (this.count == 3) {
 
