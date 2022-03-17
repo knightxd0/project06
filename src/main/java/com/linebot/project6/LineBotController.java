@@ -117,10 +117,11 @@ public class LineBotController {
                 break;
             }
             case "ไม่ต้องการ": {
+                logic = false;
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลครับ"),
                         new TextMessage("BMI: " +
-                                getBMI(info[0], info[1]))));
+                                getBMI(this.weight, this.height))));
 
                 break;
             }
@@ -129,7 +130,7 @@ public class LineBotController {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("กำลังประมวลผลครับ"),
                         new TextMessage("BMI: " +
-                                getBMI(info[0], info[1]))));
+                                getBMI(this.weight, this.height))));
 
                 break;
             }
