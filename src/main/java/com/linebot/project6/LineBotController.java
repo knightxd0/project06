@@ -182,20 +182,43 @@ public class LineBotController {
                 break;
             }
             case "ไม่": {
-                logic = false;
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage("กำลังประมวลผลครับ"),
-                        new TextMessage("BMI: " +
-                                getBMI(this.weight, this.height))));
+
+                if (this.type == 0) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("BMI: " +
+                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
+                                    + getStandard(getBMI(this.weight, this.height)))));
+                } else if (this.type == 1) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("แคลลอรี่ต่อวัน: " +
+                                    getCalories())));
+                }
+                // this.weight = 0;
+                this.count = 0;
 
                 break;
             }
             case "ไม่ต้อง": {
-                logic = false;
-                this.reply(replyToken, Arrays.asList(
-                        new TextMessage("กำลังประมวลผลครับ"),
-                        new TextMessage("BMI: " +
-                                getBMI(this.weight, this.height))));
+                if (this.type == 0) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("BMI: " +
+                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
+                                    + getStandard(getBMI(this.weight, this.height)))));
+                } else if (this.type == 1) {
+                    logic = false;
+                    this.reply(replyToken, Arrays.asList(
+                            new TextMessage("กำลังประมวลผลครับ"),
+                            new TextMessage("แคลลอรี่ต่อวัน: " +
+                                    getCalories())));
+                }
+                // this.weight = 0;
+                this.count = 0;
 
                 break;
             }
