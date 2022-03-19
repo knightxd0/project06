@@ -51,6 +51,21 @@ public class LineBotController {
         }
     }
 
+    public String checktext(String text) {
+        String t = text;
+        String messagech;
+        if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi"))
+                || (t.equals("bMI"))) {
+            messagech = "BMI";
+        } else if (t.equals("calorie") || t.equals("Calories") || t.equals("Cal")) {
+            messagech = "แคลลอรี่";
+        } else {
+            messagech = t;
+        }
+
+        return messagech;
+    }
+
     public void getLogic(String text) {
         String t = text;
         if (t.equals("ยกเลิก")) {
@@ -115,7 +130,7 @@ public class LineBotController {
 
         log.info("Got text message from %s : %s", replyToken, text);
 
-        switch (text) {
+        switch (checktext(text)) {
             case "Profile": {
                 String userId = event.getSource().getUserId();
                 if (userId != null) {
@@ -215,7 +230,7 @@ public class LineBotController {
                     this.reply(replyToken, Arrays.asList(
                             new TextMessage("กำลังประมวลผลครับ"),
                             new TextMessage("แคลลอรี่ต่อวัน: " +
-                                    getCalories())));
+                                    getCalories() + "กิโลแคลอรี่")));
                 }
                 // this.weight = 0;
                 this.count = 0;
