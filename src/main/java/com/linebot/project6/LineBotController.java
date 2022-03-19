@@ -57,10 +57,21 @@ public class LineBotController {
         if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi"))
                 || (t.equals("bMI"))) {
             messagech = "BMI";
-        } else if (t.equals("calorie") || t.equals("Calories") || t.equals("Cal")) {
+
+        } else if (t.equals("calorie") || t.equals("Calorie") || t.equals("calories") || t.equals("Calories")
+                || t.equals("Cal") || t.equals("cal")) {
             messagech = "แคลลอรี่";
+
+        } else if (t.equals("y") || t.equals("yes") || t.equals("ใช่") || t.equals("Yes") || t.equals("ใช่แล้ว")
+                || t.equals("ยืนยัน")) {
+            messagech = "Y";
+
+        } else if (t.equals("n") || t.equals("no") || t.equals("ไม่ใช่") || t.equals("NO") || t.equals("ไม่ยืนยัน")) {
+            messagech = "N";
+
         } else {
             messagech = t;
+
         }
 
         return messagech;
@@ -68,6 +79,7 @@ public class LineBotController {
 
     public void getLogic(String text) {
         String t = text;
+        t = checktext(t);
         if (t.equals("ยกเลิก")) {
             logic = false;
         }
@@ -84,6 +96,12 @@ public class LineBotController {
             logic = false;
         }
         if (t.equals("ไม่ต้อง")) {
+            logic = false;
+        }
+        if (t.equals("N")) {
+            logic = false;
+        }
+        if (t.equals("Y")) {
             logic = false;
         }
     }
@@ -164,7 +182,7 @@ public class LineBotController {
                 break;
             }
 
-            case "ต้องการแก้ไข": {
+            case "N": {
                 this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
                 logic = true;
                 this.count = 0;
@@ -176,7 +194,7 @@ public class LineBotController {
                 this.count = 0;
                 break;
             }
-            case "ไม่ต้องการ": {
+            case "Y": {
                 if (this.type == 0) {
                     logic = false;
                     this.reply(replyToken, Arrays.asList(
@@ -317,7 +335,7 @@ public class LineBotController {
                     new TextMessage("เพศ: " + this.gender),
                     new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "\nอายุ: " + this.age
                             + "\nเพศ: " + this.gender),
-                    new TextMessage("ต้องการแก้ไขหรือไม่ครับ\n(ต้องการ/ไม่ต้องการ)")));
+                    new TextMessage("ยืนยันข้อมูล\n(y/n)")));
         }
 
     }
