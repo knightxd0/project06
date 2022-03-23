@@ -340,7 +340,6 @@ public class LineBotController extends health implements eventToText {
                 this.gender = text;
 
             } else {
-                this.reply(replyToken, new TextMessage("ข้อมูลไม่ถูกต้องครับ\nเพศอะไรครับ"));
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
                         new TextMessage("เพศอะไรครับ")
