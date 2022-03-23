@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @LineMessageHandler
-public class LineBotController extends health implements eventToText {
+public class LineBotController extends health implements eventToText, logic {
     // field
     private int count;
     private double weight;
@@ -86,7 +86,7 @@ public class LineBotController extends health implements eventToText {
     }
 
     // set logic ให้เป็น false เพื่อให้ไปใช้งานส่วนหัวข้อได้
-    // Interfce eventToText
+    // Interfce logic
     public void getLogic(String text) {
         String t = text;
         t = checktext(t);
