@@ -226,7 +226,7 @@ public class LineBotController extends health {
                     this.reply(replyToken, Arrays.asList(
                             new TextMessage("กำลังประมวลผลครับ"),
                             new TextMessage("แคลลอรี่ต่อวัน: " +
-                                    getCalories() + "กิโลแคลลอรี่")));
+                                    getCalories() + " กิโลแคลลอรี่")));
                 }
                 this.count = 0;
 
