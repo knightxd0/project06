@@ -53,6 +53,10 @@ public abstract class health {
         this.gender = gender;
     }
 
+    public String getStandard() {
+        return this.standard;
+    }
+
     public void setStandard(String st) {
         this.standard = st;
     }

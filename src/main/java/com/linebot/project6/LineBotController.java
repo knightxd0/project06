@@ -25,11 +25,14 @@ import java.util.concurrent.ExecutionException;
 public class LineBotController extends health implements eventToText, logic {
     // field
     private int count;
-    private double weight;
-    private double height;
-    private int age;
-    private String gender;
-    private String standard;
+    /*
+     * private double weight;
+     * private double height;
+     * private int age;
+     * private String gender;
+     * 
+     * private String standard;
+     */
     private double sum;
     private int type;
 
@@ -119,12 +122,12 @@ public class LineBotController extends health implements eventToText, logic {
     // ฟังก์ชันคำนวนแคลลอรี่ต่อวัน
     // Abstract health
     public double getCalories() {
-        String g = this.gender;
+        String g = getGender();
         double calories;
         if (g.equals("ชาย")) {
-            this.sum = this.weight * 31.0;
+            this.sum = getWeight() * 31.0;
         } else if (g.equals("หญิง")) {
-            this.sum = this.weight * 27.0;
+            this.sum = getWeight() * 27.0;
         }
         calories = this.sum;
         return calories;
@@ -142,20 +145,20 @@ public class LineBotController extends health implements eventToText, logic {
     // Abstract health
     public String getStandard(double bmi) {
         double b = bmi;
-        String standard;
+        // String standard;
         if (b < 18.50) {
-            this.standard = "น้ำหนักต่ำกว่าเกณฑ์";
+            setStandard("น้ำหนักต่ำกว่าเกณฑ์");
         } else if ((b > 18.59) && (b < 22.90)) {
-            this.standard = "สุขภาพดี";
+            setStandard("สุขภาพดีมาก");
         } else if ((b > 23.0) && (b < 24.90)) {
-            this.standard = "ท้วม";
+            setStandard("สุขภาพดี");
         } else if ((b > 25.0) && (b < 29.90)) {
-            this.standard = "อ้วน";
+            setStandard("เริ่มอ้วน");
         } else if (b > 30.0) {
-            this.standard = "อ้วนมาก";
+            setStandard("อ้วนแล้วนะ");
         }
-        standard = this.standard;
-        return standard;
+        // standard = this.standard;
+        return getStandard();
     }
 
     // behavior
@@ -309,7 +312,7 @@ public class LineBotController extends health implements eventToText, logic {
 
                 try {
                     int num = Integer.parseInt(n[i]);
-                    this.age = num;
+                    setAge(num);
 
                 } catch (NumberFormatException e) {
                     logic = false;
@@ -332,10 +335,10 @@ public class LineBotController extends health implements eventToText, logic {
         } else if (this.count == 3) {
 
             if (text.equals("ชาย")) {
-                this.gender = text;
+                setGender(text);
 
             } else if (text.equals("หญิง")) {
-                this.gender = text;
+                setGender(text);
 
             } else {
                 this.reply(replyToken, Arrays.asList(
@@ -346,9 +349,9 @@ public class LineBotController extends health implements eventToText, logic {
             }
 
             this.reply(replyToken, Arrays.asList(
-                    new TextMessage("เพศ: " + this.gender),
-                    new TextMessage("น้ำหนัก: " + getWeight() + "\nส่วนสูง: " + getHeight() + "\nอายุ: " + this.age
-                            + "\nเพศ: " + this.gender),
+                    new TextMessage("เพศ: " + getGender()),
+                    new TextMessage("น้ำหนัก: " + getWeight() + "\nส่วนสูง: " + getHeight() + "\nอายุ: " + getAge()
+                            + "\nเพศ: " + getGender()),
                     new TextMessage("ยืนยันข้อมูล\n(y/n)")));
         }
 
