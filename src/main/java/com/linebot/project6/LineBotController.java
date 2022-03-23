@@ -133,8 +133,7 @@ public class LineBotController extends health implements eventToText, logic {
     // ฟังก์ชันคำนวนBMI
     // Abstract health
     public double getBMI(double weight, double height) {
-        // setHeight(height);
-        double h = Math.pow(getHeight(), 2);
+        double h = (getHeight() / 100.0) * (getHeight() / 100.0);
         double sum = weight / h;
         return Double.parseDouble(String.format("%.2f", sum));
     }

@@ -34,7 +34,7 @@ public abstract class health {
     }
 
     public void setHeight(double height) {
-        this.height = height / 100.0;
+        this.height = height;
     }
 
     public int getAge() {
