@@ -34,10 +34,9 @@ public class LineBotController extends health implements eventToText, logic {
     private int type;
 
     boolean logic = false;
-    // double[] info = new double[2];
 
-    // -------------------------------------------------------------- ส่วน code
-    // --------------------------------------------------------------
+    // ----------------------------------------------------------- ส่วน code
+    // ---------------------------------------------------------
 
     // method
     @Autowired
@@ -219,7 +218,7 @@ public class LineBotController extends health implements eventToText, logic {
                     this.reply(replyToken, Arrays.asList(
                             new TextMessage("กำลังประมวลผลครับ"),
                             new TextMessage("BMI: " +
-                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
+                                    getBMI(getWeight(), getHeight()) + "\nคุณอยู่ในเกณฑ์: "
                                     + getStandard(getBMI(this.weight, this.height)))));
                 } else if (this.type == 1) {
                     logic = false;
@@ -262,7 +261,7 @@ public class LineBotController extends health implements eventToText, logic {
 
                 try {
                     double num = Double.parseDouble(n[i]);
-                    this.weight = num;
+                    setWeight(num);
 
                 } catch (NumberFormatException e) {
                     logic = false;
@@ -286,7 +285,7 @@ public class LineBotController extends health implements eventToText, logic {
 
                 try {
                     double num = Double.parseDouble(n[i]);
-                    this.height = num;
+                    setHeight(num);
 
                 } catch (NumberFormatException e) {
                     logic = false;
