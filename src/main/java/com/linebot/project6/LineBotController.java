@@ -182,26 +182,26 @@ public class LineBotController extends health implements eventToText, logic {
                 break;
             }
             case "BMI": {
-                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไรครับ kg."));
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.type = 0;
                 break;
             }
             case "แคลลอรี่": {
-                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไรครับ kg."));
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.type = 1;
                 break;
             }
 
             case "N": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.count = 0;
                 break;
             }
             case "ต้องการ": {
-                this.reply(replyToken, new TextMessage("ช่วยบอกน้ำหนัก kg."));
+                this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.count = 0;
                 break;
@@ -263,12 +263,12 @@ public class LineBotController extends health implements eventToText, logic {
             }
             if (logic) {
                 this.count++;
-                this.reply(replyToken, new TextMessage("ส่วนสูงเท่าไรครับ cm."));
+                this.reply(replyToken, new TextMessage("ส่วนสูงเท่าไหร่ครับ cm."));
 
             } else {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
-                        new TextMessage("น้ำหนักเท่าไรครับ kg.")
+                        new TextMessage("น้ำหนักเท่าไหร่ครับ kg.")
 
                 ));
                 logic = true;
@@ -288,12 +288,12 @@ public class LineBotController extends health implements eventToText, logic {
 
             if (logic) {
                 this.count++;
-                this.reply(replyToken, new TextMessage("อายุเท่าไรครับ"));
+                this.reply(replyToken, new TextMessage("อายุเท่าไหร่ครับ"));
 
             } else {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
-                        new TextMessage("ส่วนสูงเท่าไรครับ cm.")
+                        new TextMessage("ส่วนสูงเท่าไหร่ครับ cm.")
 
                 ));
                 logic = true;
@@ -318,7 +318,7 @@ public class LineBotController extends health implements eventToText, logic {
             } else {
                 this.reply(replyToken, Arrays.asList(
                         new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
-                        new TextMessage("อายุเท่าไรครับ")
+                        new TextMessage("อายุเท่าไหร่ครับ")
 
                 ));
                 logic = true;
