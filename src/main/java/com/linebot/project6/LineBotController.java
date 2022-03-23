@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @LineMessageHandler
-public class LineBotController {
+public class LineBotController extends health {
     // field
     private int count;
     private double weight;
@@ -36,17 +36,18 @@ public class LineBotController {
     boolean logic = false;
     double[] info = new double[2];
 
- //-------------------------------------------------------------- ส่วน code --------------------------------------------------------------
+    // -------------------------------------------------------------- ส่วน code
+    // --------------------------------------------------------------
 
-    //method
+    // method
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
-    @EventMapping //รับข้อมูลจาก user
+    @EventMapping // รับข้อมูลจาก user
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
         TextMessageContent message = event.getMessage();
-        getLogic(message.getText());//จัดการ true false  
+        getLogic(message.getText());// จัดการ true false
         if (logic) {
             inputTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความที่ user ป้อน
         } else {
@@ -54,13 +55,16 @@ public class LineBotController {
         }
     }
 
-    //ส่วนเช็คหัวข้อ
+    // ส่วนเช็คหัวข้อ
+    // Interfce eventToText
     public String checktext(String text) {
         String t = text;
         String messagech;
-        if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi")) //กลุ่มคำที่ user อาจพิมพ์มา
+        if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi")) // กลุ่มคำที่
+                                                                                                                  // user
+                                                                                                                  // อาจพิมพ์มา
                 || (t.equals("bMI"))) {
-            messagech = "BMI"; //จะ set คำที่ user ป้อนมาให้ตรงกับหัวข้อ BMI เพื่อง่ายต่อกาารใช้งานของ user
+            messagech = "BMI"; // จะ set คำที่ user ป้อนมาให้ตรงกับหัวข้อ BMI เพื่อง่ายต่อกาารใช้งานของ user
 
         } else if (t.equals("calorie") || t.equals("Calorie") || t.equals("calories") || t.equals("Calories")
                 || t.equals("Cal") || t.equals("cal")) {
@@ -74,14 +78,15 @@ public class LineBotController {
             messagech = "N";
 
         } else {
-            messagech = t; //ถ้ากลุ่มคำไม่ตรงก็จะคืนค่ากลุ่มคำนั้นไปใช้ต่อ
+            messagech = t; // ถ้ากลุ่มคำไม่ตรงก็จะคืนค่ากลุ่มคำนั้นไปใช้ต่อ
 
         }
 
         return messagech;
     }
 
-    //set logic ให้เป็น false เพื่อให้ไปใช้งานส่วนหัวข้อได้
+    // set logic ให้เป็น false เพื่อให้ไปใช้งานส่วนหัวข้อได้
+    // Interfce eventToText
     public void getLogic(String text) {
         String t = text;
         t = checktext(t);
@@ -105,14 +110,15 @@ public class LineBotController {
         }
         if (t.equals("N")) {
             logic = false;
-    
+
         }
         if (t.equals("Y")) {
             logic = false;
         }
     }
 
-    //ฟังก์ชันคำนวนแคลลอรี่ต่อวัน
+    // ฟังก์ชันคำนวนแคลลอรี่ต่อวัน
+    // Abstract health
     public double getCalories() {
         String g = this.gender;
         double calories;
@@ -125,15 +131,17 @@ public class LineBotController {
         return calories;
     }
 
-    //ฟังก์ชันคำนวนBMI
+    // ฟังก์ชันคำนวนBMI
+    // Abstract health
     public double getBMI(double weight, double height) {
-
-        double h = ((height / 100.00) * (height / 100.00));
+        setHeight(height);
+        double h = Math.pow(getHeight(), 2);
         double sum = weight / h;
         return Double.parseDouble(String.format("%.2f", sum));
     }
 
-    //ฟังก์ชันเกณฑ์BMI
+    // ฟังก์ชันเกณฑ์BMI
+    // Abstract health
     public String getStandard(double bmi) {
         double b = bmi;
         String standard;
@@ -152,7 +160,8 @@ public class LineBotController {
         return standard;
     }
 
-    //ส่วนหัวข้อ
+    // behavior
+    // ส่วนหัวข้อ
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
@@ -239,8 +248,8 @@ public class LineBotController {
 
     }
 
-
-    //ส่วน input ค่าจาก user
+    // behavior
+    // ส่วน input ค่าจาก user
     private void inputTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
 
@@ -310,7 +319,7 @@ public class LineBotController {
 
     }
 
-    //------------------------------------------------------------------------------------------------------------------------------------------
+    // ------------------------------------------------------------------------------------------------------------------------------------------
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         if (replyToken.isEmpty()) {
