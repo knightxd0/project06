@@ -34,7 +34,7 @@ public class LineBotController extends health implements eventToText, logic {
     private int type;
 
     boolean logic = false;
-    double[] info = new double[2];
+    // double[] info = new double[2];
 
     // -------------------------------------------------------------- ส่วน code
     // --------------------------------------------------------------
