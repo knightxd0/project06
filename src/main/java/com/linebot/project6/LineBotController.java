@@ -257,7 +257,7 @@ public class LineBotController extends health implements eventToText {
         String[] n = text.split(" ");
 
         if (this.count == 0) {
-            
+
             for (int i = 0; i < n.length; i++) {
 
                 try {
@@ -268,15 +268,17 @@ public class LineBotController extends health implements eventToText {
                     logic = false;
                 }
             }
-            if(logic){
+            if (logic) {
                 this.count++;
                 this.reply(replyToken, new TextMessage("ส่วนสูงเท่าไรครับ cm."));
-            }else{
+
+            } else {
                 this.reply(replyToken, Arrays.asList(
-                                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
-                                        new TextMessage("น้ำหนักเท่าไรครับ kg.")
-                                        
-                                        ));
+                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
+                        new TextMessage("น้ำหนักเท่าไรครับ kg.")
+
+                ));
+                logic = true;
             }
 
         } else if (this.count == 1) {
