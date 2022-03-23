@@ -133,7 +133,7 @@ public class LineBotController extends health implements eventToText, logic {
     // ฟังก์ชันคำนวนBMI
     // Abstract health
     public double getBMI(double weight, double height) {
-        setHeight(height);
+        // setHeight(height);
         double h = Math.pow(getHeight(), 2);
         double sum = weight / h;
         return Double.parseDouble(String.format("%.2f", sum));
@@ -219,7 +219,7 @@ public class LineBotController extends health implements eventToText, logic {
                             new TextMessage("กำลังประมวลผลครับ"),
                             new TextMessage("BMI: " +
                                     getBMI(getWeight(), getHeight()) + "\nคุณอยู่ในเกณฑ์: "
-                                    + getStandard(getBMI(this.weight, this.height)))));
+                                    + getStandard(getBMI(getWeight(), getHeight())))));
                 } else if (this.type == 1) {
                     logic = false;
                     this.reply(replyToken, Arrays.asList(
@@ -348,7 +348,7 @@ public class LineBotController extends health implements eventToText, logic {
 
             this.reply(replyToken, Arrays.asList(
                     new TextMessage("เพศ: " + this.gender),
-                    new TextMessage("น้ำหนัก: " + this.weight + "\nส่วนสูง: " + this.height + "\nอายุ: " + this.age
+                    new TextMessage("น้ำหนัก: " + getWeight() + "\nส่วนสูง: " + getHeight() + "\nอายุ: " + this.age
                             + "\nเพศ: " + this.gender),
                     new TextMessage("ยืนยันข้อมูล\n(y/n)")));
         }
