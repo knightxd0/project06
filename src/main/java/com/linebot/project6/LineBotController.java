@@ -292,8 +292,19 @@ public class LineBotController extends health implements eventToText {
                     logic = false;
                 }
             }
-            this.count++;
-            this.reply(replyToken, new TextMessage("อายุเท่าไรครับ"));
+
+            if (logic) {
+                this.count++;
+                this.reply(replyToken, new TextMessage("อายุเท่าไรครับ"));
+
+            } else {
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
+                        new TextMessage("ส่วนสูงเท่าไรครับ cm.")
+
+                ));
+                logic = true;
+            }
 
         } else if (this.count == 2) {
             for (int i = 0; i < n.length; i++) {
@@ -306,8 +317,19 @@ public class LineBotController extends health implements eventToText {
                     logic = false;
                 }
             }
-            this.count++;
-            this.reply(replyToken, new TextMessage("เพศอะไรครับ"));
+
+            if (logic) {
+                this.count++;
+                this.reply(replyToken, new TextMessage("เพศอะไรครับ"));
+
+            } else {
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
+                        new TextMessage("อายุเท่าไรครับ")
+
+                ));
+                logic = true;
+            }
 
         } else if (this.count == 3) {
 
@@ -319,6 +341,11 @@ public class LineBotController extends health implements eventToText {
 
             } else {
                 this.reply(replyToken, new TextMessage("ข้อมูลไม่ถูกต้องครับ\nเพศอะไรครับ"));
+                this.reply(replyToken, Arrays.asList(
+                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
+                        new TextMessage("เพศอะไรครับ")
+
+                ));
             }
 
             this.reply(replyToken, Arrays.asList(
