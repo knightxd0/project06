@@ -25,14 +25,6 @@ import java.util.concurrent.ExecutionException;
 public class LineBotController extends health implements eventToText, logic {
     // field
     private int count;
-    /*
-     * private double weight;
-     * private double height;
-     * private int age;
-     * private String gender;
-     * 
-     * private String standard;
-     */
     private double sum;
     private int type;
 
@@ -349,9 +341,9 @@ public class LineBotController extends health implements eventToText, logic {
             }
 
             this.reply(replyToken, Arrays.asList(
-                    new TextMessage("เพศ: " + getGender()),
-                    new TextMessage("น้ำหนัก: " + getWeight() + "\nส่วนสูง: " + getHeight() + "\nอายุ: " + getAge()
-                            + "\nเพศ: " + getGender()),
+                    new TextMessage("น้ำหนัก: " + getWeight() + " kg" + "\nส่วนสูง: " + getHeight() + " cm" + "\nอายุ: "
+                            + getAge()
+                            + " ปี" + "\nเพศ: " + getGender()),
                     new TextMessage("ยืนยันข้อมูล\n(y/n)")));
         }
 
