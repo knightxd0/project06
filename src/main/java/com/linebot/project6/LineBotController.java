@@ -22,7 +22,7 @@ import java.util.concurrent.ExecutionException;
 
 @Slf4j
 @LineMessageHandler
-public class LineBotController extends health {
+public class LineBotController extends health implements eventToText {
     // field
     private int count;
     private double weight;
