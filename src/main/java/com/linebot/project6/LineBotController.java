@@ -36,27 +36,31 @@ public class LineBotController {
     boolean logic = false;
     double[] info = new double[2];
 
+ //-------------------------------------------------------------- ส่วน code --------------------------------------------------------------
+
+    //method
     @Autowired
     private LineMessagingClient lineMessagingClient;
 
-    @EventMapping //
+    @EventMapping //รับข้อมูลจาก user
     public void handleTextMessage(MessageEvent<TextMessageContent> event) { // จัดการข้อความข้อความ //Event = เหตุการณ์
         log.info(event.toString());
         TextMessageContent message = event.getMessage();
-        getLogic(message.getText());
-        if (logic == true) {
-            inputTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+        getLogic(message.getText());//จัดการ true false  
+        if (logic) {
+            inputTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความที่ user ป้อน
         } else {
-            handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความ
+            handleTextContent(event.getReplyToken(), event, message); // จัดการเนื้อหาข้อความส่วน หัวข้อ
         }
     }
 
+    //ส่วนเช็คหัวข้อ
     public String checktext(String text) {
         String t = text;
         String messagech;
-        if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi"))
+        if ((t.equals("bmi")) || (t.equals("Bmi")) || (t.equals("BMi")) || (t.equals("BMI")) || (t.equals("bMi")) //กลุ่มคำที่ user อาจพิมพ์มา
                 || (t.equals("bMI"))) {
-            messagech = "BMI";
+            messagech = "BMI"; //จะ set คำที่ user ป้อนมาให้ตรงกับหัวข้อ BMI เพื่อง่ายต่อกาารใช้งานของ user
 
         } else if (t.equals("calorie") || t.equals("Calorie") || t.equals("calories") || t.equals("Calories")
                 || t.equals("Cal") || t.equals("cal")) {
@@ -70,13 +74,14 @@ public class LineBotController {
             messagech = "N";
 
         } else {
-            messagech = t;
+            messagech = t; //ถ้ากลุ่มคำไม่ตรงก็จะคืนค่ากลุ่มคำนั้นไปใช้ต่อ
 
         }
 
         return messagech;
     }
 
+    //set logic ให้เป็น false เพื่อให้ไปใช้งานส่วนหัวข้อได้
     public void getLogic(String text) {
         String t = text;
         t = checktext(t);
@@ -100,12 +105,14 @@ public class LineBotController {
         }
         if (t.equals("N")) {
             logic = false;
+    
         }
         if (t.equals("Y")) {
             logic = false;
         }
     }
 
+    //ฟังก์ชันคำนวนแคลลอรี่ต่อวัน
     public double getCalories() {
         String g = this.gender;
         double calories;
@@ -118,6 +125,7 @@ public class LineBotController {
         return calories;
     }
 
+    //ฟังก์ชันคำนวนBMI
     public double getBMI(double weight, double height) {
 
         double h = ((height / 100.00) * (height / 100.00));
@@ -125,6 +133,7 @@ public class LineBotController {
         return Double.parseDouble(String.format("%.2f", sum));
     }
 
+    //ฟังก์ชันเกณฑ์BMI
     public String getStandard(double bmi) {
         double b = bmi;
         String standard;
@@ -143,6 +152,7 @@ public class LineBotController {
         return standard;
     }
 
+    //ส่วนหัวข้อ
     private void handleTextContent(String replyToken, Event event, TextMessageContent content) { // เนื้อหา
         String text = content.getText();
 
@@ -209,48 +219,6 @@ public class LineBotController {
                             new TextMessage("แคลลอรี่ต่อวัน: " +
                                     getCalories())));
                 }
-                // this.weight = 0;
-                this.count = 0;
-
-                break;
-            }
-            case "ไม่": {
-
-                if (this.type == 0) {
-                    logic = false;
-                    this.reply(replyToken, Arrays.asList(
-                            new TextMessage("กำลังประมวลผลครับ"),
-                            new TextMessage("BMI: " +
-                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
-                                    + getStandard(getBMI(this.weight, this.height)))));
-                } else if (this.type == 1) {
-                    logic = false;
-                    this.reply(replyToken, Arrays.asList(
-                            new TextMessage("กำลังประมวลผลครับ"),
-                            new TextMessage("แคลลอรี่ต่อวัน: " +
-                                    getCalories())));
-                }
-                // this.weight = 0;
-                this.count = 0;
-
-                break;
-            }
-            case "ไม่ต้อง": {
-                if (this.type == 0) {
-                    logic = false;
-                    this.reply(replyToken, Arrays.asList(
-                            new TextMessage("กำลังประมวลผลครับ"),
-                            new TextMessage("BMI: " +
-                                    getBMI(this.weight, this.height) + "\nคุณอยู่ในเกณฑ์: "
-                                    + getStandard(getBMI(this.weight, this.height)))));
-                } else if (this.type == 1) {
-                    logic = false;
-                    this.reply(replyToken, Arrays.asList(
-                            new TextMessage("กำลังประมวลผลครับ"),
-                            new TextMessage("แคลลอรี่ต่อวัน: " +
-                                    getCalories() + "กิโลแคลอรี่")));
-                }
-                // this.weight = 0;
                 this.count = 0;
 
                 break;
@@ -271,6 +239,8 @@ public class LineBotController {
 
     }
 
+
+    //ส่วน input ค่าจาก user
     private void inputTextContent(String replyToken, Event event, TextMessageContent content) {
         String text = content.getText();
 
@@ -339,6 +309,8 @@ public class LineBotController {
         }
 
     }
+
+    //------------------------------------------------------------------------------------------------------------------------------------------
 
     private void replyText(@NonNull String replyToken, @NonNull String message) {
         if (replyToken.isEmpty()) {
