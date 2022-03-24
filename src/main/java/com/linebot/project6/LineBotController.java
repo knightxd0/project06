@@ -87,6 +87,12 @@ public class LineBotController extends health implements eventToText, logic {
         if (t.equals("ยกเลิก")) {
             logic = false;
         }
+        if (t.equals("แคลลอรี่")) {
+            logic = false;
+        }
+        if (t.equals("BMI")) {
+            logic = false;
+        }
         if (t.equals("ต้องการแก้ไข")) {
             logic = false;
         }
