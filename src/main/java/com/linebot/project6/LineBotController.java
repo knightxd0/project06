@@ -206,6 +206,13 @@ public class LineBotController extends health implements eventToText, logic {
                 this.count = 0;
                 break;
             }
+            case "ยกเลิก": {
+                this.reply(replyToken, new TextMessage(
+                        "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ แคลลอรี่\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล"));
+                logic = true;
+                this.count = 0;
+                break;
+            }
             case "Y": {
                 if (this.type == 0) {
                     logic = false;
