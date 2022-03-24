@@ -191,12 +191,14 @@ public class LineBotController extends health implements eventToText, logic {
                 this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.type = 0;
+                this.count = 0;
                 break;
             }
             case "แคลลอรี่": {
                 this.reply(replyToken, new TextMessage("น้ำหนักเท่าไหร่ครับ kg."));
                 logic = true;
                 this.type = 1;
+                this.count = 0;
                 break;
             }
 
