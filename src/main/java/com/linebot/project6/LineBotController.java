@@ -232,7 +232,7 @@ public class LineBotController extends health implements eventToText, logic {
             }
             case "สวัสดี": {
                 this.reply(replyToken, Arrays.asList(
-                        new TextMessage("สวัสดีครับมีอะไรให้โมโม่ช่วยมั้ยครับ\n\n"),
+                        new TextMessage("สวัสดีครับมีอะไรให้โมโม่ช่วยมั้ยครับ"),
                         new TextMessage(
                                 "เริ่มใช้งานง่ายๆ ตามนี้เลย\nหา BMI\n1.พิมพ์ BMI\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล\nหา Calories ต่อวัน\n1.พิมพ์ แคลลอรี่\n2.กรอกข้อมูล\n3.ยืนยันข้อมูล")));
                 break;
