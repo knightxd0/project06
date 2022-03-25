@@ -301,7 +301,11 @@ public class LineBotController extends health implements eventToText, logic {
 
                 try {
                     double num = Double.parseDouble(n[i]);
-                    setHeight(num);
+                    if (num > getWeight()) {
+                        setHeight(num);
+                    } else {
+                        logic = false;
+                    }
 
                 } catch (NumberFormatException e) {
                     logic = false;
