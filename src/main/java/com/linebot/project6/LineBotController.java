@@ -326,7 +326,11 @@ public class LineBotController extends health implements eventToText, logic {
 
                 try {
                     int num = Integer.parseInt(n[i]);
-                    setAge(num);
+                    if (num < 120) {
+                        setAge(num);
+                    } else {
+                        logic = false;
+                    }
 
                 } catch (NumberFormatException e) {
                     logic = false;
