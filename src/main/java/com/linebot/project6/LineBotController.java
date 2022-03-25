@@ -71,6 +71,10 @@ public class LineBotController extends health implements eventToText, logic {
         } else if (t.equals("n") || t.equals("no") || t.equals("ไม่ใช่") || t.equals("NO") || t.equals("ไม่ยืนยัน")) {
             messagech = "N";
 
+        } else if (t.equals("วัดดี") || t.equals("หวัดดี") || t.equals("สาหวัดดี") || t.equals("หวัดดีครับ")
+                || t.equals("หวัดดีคั้บ")) {
+            messagech = "สวัสดี";
+
         } else {
             messagech = t; // ถ้ากลุ่มคำไม่ตรงก็จะคืนค่ากลุ่มคำนั้นไปใช้ต่อ
 
