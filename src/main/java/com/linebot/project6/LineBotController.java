@@ -293,7 +293,7 @@ public class LineBotController extends health implements eventToText, logic {
 
             } else {
                 this.reply(replyToken, Arrays.asList(
-                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"),
+                        new TextMessage("ข้อมูลไม่ถูกต้องครับ"), // แก้ไม่ให้คิดก่อน
                         new TextMessage("น้ำหนักเท่าไหร่ครับ kg.")
 
                 ));
